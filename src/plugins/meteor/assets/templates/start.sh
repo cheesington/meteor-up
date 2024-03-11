@@ -8,7 +8,7 @@ ENV_FILE=$APP_PATH/config/env.list
 PORT=<%= port %>
 BIND=<%= bind %>
 NGINX_PROXY_VERSION="latest"
-LETS_ENCRYPT_VERSION="v1.13.1"
+LETSENCRYPT_COMPANION_VERSION="2.2"
 APP_IMAGE=<%- imagePrefix %><%= appName.toLowerCase() %>
 IMAGE=$APP_IMAGE:latest
 VOLUME="--volume=$BUNDLE_PATH:/bundle"
@@ -124,7 +124,8 @@ EOT
 
     # We don't need to fail the deployment because of a docker hub downtime
     set +e
-    sudo docker pull jrcs/letsencrypt-nginx-proxy-companion:$LETS_ENCRYPT_VERSION
+    sudo docker pull nginxrpoxy/acme-companion:$LETSENCRYPT_COMPANION_VERSION
+    #sudo docker pull jrcs/letsencrypt-nginx-proxy-companion:$LETS_ENCRYPT_VERSION
     #sudo docker pull zodern/nginx-proxy:$NGINX_PROXY_VERSION
     sudo docker pull cheesington/nginx-proxy:$NGINX_PROXY_VERSION
     set -e
@@ -150,8 +151,9 @@ EOT
       --volumes-from $APPNAME-nginx-proxy \
       -v /opt/$APPNAME/certs:/etc/nginx/certs:rw \
       -v /var/run/docker.sock:/var/run/docker.sock:ro \
-      jrcs/letsencrypt-nginx-proxy-companion:$LETS_ENCRYPT_VERSION
-    echo "Ran jrcs/letsencrypt-nginx-proxy-companion"
+      nginxproxy/acme-companion:$LETSENCRYPT_COMPANION_VERSION
+		#jrcs/letsencrypt-nginx-proxy-companion:$LETS_ENCRYPT_VERSION
+    echo "Ran nginxproxy/acme-companion"
     <% } else { %>
     # We don't need to fail the deployment because of a docker hub downtime
     set +e

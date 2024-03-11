@@ -2,9 +2,8 @@
 
 APPNAME=<%= appName %>
 APP_PATH=/opt/$APPNAME
-#NGINX_PROXY_VERSION="v1.1.0"
-NGINX_PROXY_VERSION="latest"
-LETSENCRYPT_COMPANION_VERSION="v1.13.1"
+NGINX_PROXY_VERSION="1.5"
+LETSENCRYPT_COMPANION_VERSION="2.2"
 
 # Shared settings
 source $APP_PATH/config/shared-config.sh
@@ -19,11 +18,11 @@ ENV_FILE_LETSENCRYPT=$APP_PATH/config/env_letsencrypt.list
 
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
-sudo docker pull jrcs/letsencrypt-nginx-proxy-companion:$LETSENCRYPT_COMPANION_VERSION
+sudo docker pull nginxrpoxy/acme-companion:$LETSENCRYPT_COMPANION_VERSION
 #sudo docker pull zodern/nginx-proxy:$NGINX_PROXY_VERSION
 sudo docker pull cheesington/nginx-proxy:$NGINX_PROXY_VERSION
 set -e
-echo "Pulled cheesington/nginx-proxy and jrcs/letsencrypt-nginx-proxy-companion"
+echo "Pulled cheesington/nginx-proxy and nginxproxy/acme-companion"
 
 # This updates nginx for all vhosts
 NGINX_CONFIG="client_max_body_size $CLIENT_UPLOAD_LIMIT;";
@@ -81,8 +80,8 @@ sudo docker run \
   --log-opt max-size=100m \
   --log-opt max-file=3 \
   -v /var/run/docker.sock:/var/run/docker.sock:ro \
-  jrcs/letsencrypt-nginx-proxy-companion:$LETSENCRYPT_COMPANION_VERSION
-echo "Ran jrcs/letsencrypt-nginx-proxy-companion"
+  nginxproxy/acme-companion:$LETSENCRYPT_COMPANION_VERSION
+echo "Ran nginxproxy/acme-companion"
 
 <% if (swarmEnabled) { %>
   docker rm -f $APPNAME-swarm-upstream || true
