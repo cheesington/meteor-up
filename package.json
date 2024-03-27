@@ -1,6 +1,6 @@
 {
   "name": "mup",
-  "version": "1.5.14",
+  "version": "1.5.15",
   "description": "Production Quality local Meteor Deployments",
   "main": "lib/index.js",
   "repository": {

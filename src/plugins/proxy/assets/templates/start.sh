@@ -94,8 +94,7 @@ echo "Ran nginxproxy/acme-companion"
     --volumes-from $APPNAME \
     --name $APPNAME-swarm-upstream \
     --env NGINX_PROXY_CONTAINER="$APPNAME" \
-    cheesington/nginx-proxy-swarm-upstream
-    #zodern/nginx-proxy-swarm-upstream
+	 zodern/nginx-proxy-swarm-upstream
 
   echo "Ran cheesington/nginx-proxy-swarm-upstream"
 <% } %>

@@ -7,7 +7,7 @@ BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
 PORT=<%= port %>
 BIND=<%= bind %>
-NGINX_PROXY_VERSION="latest"
+NGINX_PROXY_VERSION="1.5"
 LETSENCRYPT_COMPANION_VERSION="2.2"
 APP_IMAGE=<%- imagePrefix %><%= appName.toLowerCase() %>
 IMAGE=$APP_IMAGE:latest
